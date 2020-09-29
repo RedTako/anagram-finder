@@ -15,13 +15,16 @@ def get_word_list(path):
 
 def match_words(word_list: set, permutations: list):
     first_word = ""
+    matched_words = set()
     for word in permutations:
-        word_str = str().join(word)
+        word_str = str().join(word).lower()
         if first_word == "":
             first_word = word_str
         if word_str in word_list:
-            return word_str
+            matched_words.add(word_str)
 
+    if(len(matched_words) > 0):
+        return matched_words
     raise RuntimeError("word not found in list: {}".format(str().join(first_word)))
 
 if __name__ == "__main__":
@@ -33,7 +36,7 @@ if __name__ == "__main__":
 
         try:
             match = match_words(words, perm_list)
-            print(match)
+            print(f"{len(match)}: {match}")
         except RuntimeError as e:
             print(e)
 
